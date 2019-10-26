@@ -65,6 +65,12 @@ const Cell = styled(BackgroundCell)`
   transition: 100ms ease-in-out;
   color: #6a4e4e;
   font-weight: 900;
+  -ms-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -ms-touch-action: none;
+  touch-action: none;
   font-size: ${({value}) =>
     value < 100 ? 66
         : value < 1000 ? 46
