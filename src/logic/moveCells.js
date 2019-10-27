@@ -52,7 +52,11 @@ function moveCell(matrix, x, y) {
             matrix[currentRow][x].state = cellStates.MOVING
             matrix[currentRow][x] = 0
             currentRow = nextRow
-        } else if (matrix[nextRow][x].value === matrix[currentRow][x].value) {
+        } else if (
+            matrix[nextRow][x].value === matrix[currentRow][x].value &&
+            (matrix[nextRow][x].state === cellStates.IDLE ||
+                matrix[nextRow][x].state === cellStates.MOVING)
+        ) {
             matrix[nextRow][x].state = cellStates.DYING
             matrix[currentRow][x].state = cellStates.INCREASE
             matrix[nextRow][x] = matrix[currentRow][x]
@@ -102,17 +106,17 @@ function rotateMatrixToDirection(matrix, direction) {
     }
 }
 
-function printMatrix(matrix) {
-    let printString = '[\n'
-
-    Array.from(new Array(4), (x, i) => i).forEach(colNum => {
-        printString += '  '
-        printString += Array.from(new Array(4), (x, i) => i)
-            .map(rowNum => JSON.stringify(matrix[colNum][rowNum]).padStart(40, ' '))
-            .join(', ')
-        printString += ',\n'
-    })
-
-    printString += ']'
-    console.log(printString)
-}
+// function printMatrix(matrix) {
+//     let printString = '[\n'
+//
+//     Array.from(new Array(4), (x, i) => i).forEach(colNum => {
+//         printString += '  '
+//         printString += Array.from(new Array(4), (x, i) => i)
+//             .map(rowNum => JSON.stringify(matrix[colNum][rowNum]).padStart(40, ' '))
+//             .join(', ')
+//         printString += ',\n'
+//     })
+//
+//     printString += ']'
+//     console.log(printString)
+// }
