@@ -1,6 +1,6 @@
 import React from 'react'
-import Layout from "./Layout/Layout";
-import Field from "./Field/Field";
+import Layout from "./Layout/Layout"
+import Field from "./Field/Field"
 
 const Components = () => {
     return (
