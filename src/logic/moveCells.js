@@ -62,6 +62,8 @@ function moveCell(matrix, x, y) {
             matrix[nextRow][x] = matrix[currentRow][x]
             matrix[currentRow][x] = 0
             currentRow = nextRow
+        } else {
+            break
         }
 
         nextRow--
