@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
-import {directions, initCells, moveCells, populateField, removeAndIncreaseCells} from './logic'
+import {directions, initCells, moveCells, movesAvailable, populateField, removeAndIncreaseCells} from './logic'
 import Layout from "./components/Layout/Layout"
 import Field from "./components/Field/Field"
 import ControllPanel from "./components/ControllPanel/ControllPanel"
@@ -58,7 +58,11 @@ class App extends Component {
             this.setState(state => ({
                 ...state,
                 cells: populateField(state.cells),
-            }))
+            }), () => {
+                if (!movesAvailable(this.state.cells)) {
+                    console.log('GAME OVER')
+                }
+            })
         }
     }
 
