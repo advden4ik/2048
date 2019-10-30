@@ -7,4 +7,4 @@ export const cellStates = {
     INCREASE: 'INCREASE',
 }
 
-export const create = (x, y, value, id) => ({x, y, value, id: id ? id : uniqueId()})
+export const create = (x, y, value, id) => ({x, y, value, id: id ? id : uniqueId(), state: cellStates.IDLE})

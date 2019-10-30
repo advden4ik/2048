@@ -7,7 +7,7 @@ export const populateField = cells => {
         occupiedCoords.add(cell.x * 4 + cell.y)
     })
 
-    if (occupiedCoords.size === 16) return
+    if (occupiedCoords.size === 16) return cells
 
     let x
     let y
@@ -20,5 +20,5 @@ export const populateField = cells => {
         occupiedCoords.add(sum)
     } while (startSize === occupiedCoords.size)
 
-    return [...cells, create(x, y, 2)]
+    return [...cells, create(x, y, Math.random() <= 0.9 ? 2 : 4)]
 }

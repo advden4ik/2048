@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import _ from 'lodash'
 import {directions, initCells, moveCells, populateField, removeAndIncreaseCells} from './logic'
 import Layout from "./components/Layout/Layout"
 import Field from "./components/Field/Field"
@@ -36,6 +37,9 @@ class App extends Component {
     }
 
     handleKeyPress = async event => {
+        let moved
+        const prevCells = _.cloneDeep(this.state.cells)
+
         if (['KeyA', 'KeyS', 'KeyD', 'KeyW'].includes(event.code))
             this.setState(state => ({
                 ...state,
@@ -47,10 +51,15 @@ class App extends Component {
             ...state,
             cells: removeAndIncreaseCells(state.cells),
         }))
-        this.setState(state => ({
-            ...state,
-            cells: populateField(state.cells),
-        }))
+
+        moved = !_.isEqual(prevCells, this.state.cells)
+
+        if (moved) {
+            this.setState(state => ({
+                ...state,
+                cells: populateField(state.cells),
+            }))
+        }
     }
 
     render() {
