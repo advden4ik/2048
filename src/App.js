@@ -25,6 +25,7 @@ class App extends Component {
         return {
             cells: initCells(),
             score: 0,
+            gameover: false,
         }
     }
 
@@ -49,10 +50,9 @@ class App extends Component {
             }), () => {
                 this.setState(state => ({
                     ...state,
-                    ...removeAndIncreaseCells(state)
+                    ...removeAndIncreaseCells(state),
                 }))
             })
-
 
 
         moved = !_.isEqual(prevCells, this.state.cells)
@@ -64,7 +64,7 @@ class App extends Component {
                 cells: populateField(state.cells),
             }), () => {
                 if (!movesAvailable(this.state.cells)) {
-                    console.log('GAME OVER')
+                    this.setState({gameover: true}, () => console.log(this.state))
                     document.removeEventListener('keypress', this.handleKeyPress)
                 }
             })
@@ -72,7 +72,7 @@ class App extends Component {
     }
 
     render() {
-        const {cells, score} = this.state
+        const {cells, score, gameover} = this.state
 
         return (
             <Layout>
@@ -80,7 +80,7 @@ class App extends Component {
                     <Button onClick={this.newGame}>New Game</Button>
                     <Scores score={score}/>
                 </ControlPanel>
-                <Field cells={cells}/>
+                <Field cells={cells} gameover={gameover}/>
             </Layout>
         )
     }

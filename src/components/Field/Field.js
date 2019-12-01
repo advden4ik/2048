@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Field = ({cells}) => {
+const Field = ({cells, gameover}) => {
     return (
         <FieldTag>
+            {gameover && <GameOver>Game Over!</GameOver>}
             <Background>
                 {
                     Array
@@ -27,6 +28,21 @@ const FieldTag = styled.div`
   height: 475px;
   position: relative;
   width: 475px;
+  color: #776e65;
+  line-height: 475px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+`
+
+const GameOver = styled.div`
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  top: 0;
+  left: 0;
+  background: rgba(238, 228, 218, 0.73);
+  z-index: 100;
 `
 
 const Background = styled.div`
