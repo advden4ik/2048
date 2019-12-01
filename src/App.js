@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
 import {directions, initCells, moveCells, movesAvailable, populateField, removeAndIncreaseCells} from './logic'
-import Layout from "./components/Layout/Layout"
-import Field from "./components/Field/Field"
-import ControllPanel from "./components/ControllPanel/ControllPanel"
-import Button from "./components/Button/Button"
-import Score from "./components/Score/Score"
+import Layout from './components/Layout/Layout'
+import Field from './components/Field/Field'
+import ControlPanel from './components/ControlPanel/ControlPanel'
+import Button from './components/Button/Button'
+import Scores from './components/Scores/Scores'
 
 class App extends Component {
     state = this.getNewState()
@@ -29,6 +29,8 @@ class App extends Component {
     }
 
     componentDidMount() {
+        if (!localStorage.getItem('best')) localStorage.setItem('best', '0')
+
         document.addEventListener('keypress', this.handleKeyPress)
     }
 
@@ -44,23 +46,26 @@ class App extends Component {
             this.setState(state => ({
                 ...state,
                 cells: moveCells(state.cells, this.mapKeyCodeToDirection[event.code]),
-            }))
+            }), () => {
+                this.setState(state => ({
+                    ...state,
+                    ...removeAndIncreaseCells(state)
+                }))
+            })
 
-        await delay(100)
-        this.setState(state => ({
-            ...state,
-            cells: removeAndIncreaseCells(state.cells),
-        }))
+
 
         moved = !_.isEqual(prevCells, this.state.cells)
 
         if (moved) {
+            await delay(100)
             this.setState(state => ({
                 ...state,
                 cells: populateField(state.cells),
             }), () => {
                 if (!movesAvailable(this.state.cells)) {
                     console.log('GAME OVER')
+                    document.removeEventListener('keypress', this.handleKeyPress)
                 }
             })
         }
@@ -71,10 +76,10 @@ class App extends Component {
 
         return (
             <Layout>
-                <ControllPanel>
+                <ControlPanel>
                     <Button onClick={this.newGame}>New Game</Button>
-                    <Score>{score}</Score>
-                </ControllPanel>
+                    <Scores score={score}/>
+                </ControlPanel>
                 <Field cells={cells}/>
             </Layout>
         )

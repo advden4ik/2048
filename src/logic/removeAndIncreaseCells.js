@@ -1,13 +1,18 @@
 import {cellStates} from "./cellManager";
 
-export const removeAndIncreaseCells = (cells) => {
-    return cells.filter(cell => cell.state !== cellStates.DYING).map(cell => {
+export const removeAndIncreaseCells = ({cells, score}) => {
+    const newCells = cells.filter(cell => cell.state !== cellStates.DYING).map(cell => {
         if (cell.state === cellStates.INCREASE) {
-            cell.value *= 2
+            score += cell.value *= 2
         }
 
         cell.state = cellStates.IDLE
 
         return cell
     })
+
+    const bestScore = +localStorage.getItem('best')
+    if (score > bestScore) localStorage.setItem('best', score)
+
+    return { cells: newCells, score }
 }
