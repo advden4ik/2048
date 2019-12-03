@@ -89,7 +89,6 @@ class App extends Component {
                 cells: populateField(state.cells),
             }), () => {
                 if (!movesAvailable(this.state.cells)) {
-                    document.removeEventListener('keypress', this.handleKeyPress)
                     this.setState({gameover: true})
                 }
             })
