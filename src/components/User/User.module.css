@@ -1,0 +1,13 @@
+.User h4 {
+  display: inline-block;
+}
+
+.User button {
+  margin-left: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #de5e4b;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+}
