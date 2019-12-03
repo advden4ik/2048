@@ -90,6 +90,7 @@ class App extends Component {
             }), () => {
                 if (!movesAvailable(this.state.cells)) {
                     this.setState({gameover: true})
+                    this.saveBestScore()
                 }
             })
         }
