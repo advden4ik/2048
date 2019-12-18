@@ -32,16 +32,6 @@ class Firebase {
         await this.db.ref(`users/${this.auth.currentUser.uid}`).set({login: email, best: 0})
     }
 
-    addQuote(quote) {
-        if (!this.auth.currentUser) {
-            return alert('Not authorized')
-        }
-
-        return this.db.doc(`users_codedamn_video/${this.auth.currentUser.uid}`).set({
-            quote,
-        })
-    }
-
     isInitialized() {
         return new Promise(resolve => {
             this.auth.onAuthStateChanged(resolve)
@@ -60,15 +50,6 @@ class Firebase {
     setBestUserScore(best) {
         return this.db.ref(`users/${this.auth.currentUser.uid}`)
             .set({login: this.auth.currentUser.email, best})
-    }
-
-    getCurrentUsername() {
-        return this.auth.currentUser && this.auth.currentUser.displayName
-    }
-
-    async getCurrentUserQuote() {
-        const quote = await this.db.doc(`users_codedamn_video/${this.auth.currentUser.uid}`).get()
-        return quote.get('quote')
     }
 }
 
