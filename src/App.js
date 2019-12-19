@@ -48,11 +48,6 @@ class App extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('componentDidUpdate---------')
-        console.log('FB user', firebase.auth.currentUser)
-        console.log('prev state', prevState)
-        console.log('new state', this.state)
-        console.log('---------componentDidUpdate')
         if (this.state.user && prevState.user !== this.state.user) {
             firebase.getBestUserScore().then(_ => this.forceUpdate())
             document.addEventListener('keypress', this.handleKeyPress)
